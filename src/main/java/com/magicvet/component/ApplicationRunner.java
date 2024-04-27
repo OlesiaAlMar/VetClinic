@@ -7,8 +7,8 @@ import main.java.com.magicvet.service.ClientService;
 import main.java.com.magicvet.service.PetService;
 
 public class ApplicationRunner {
-    private ClientService clientService = new ClientService();
-    private PetService petService = new PetService();
+    private final ClientService clientService = new ClientService();
+    private final PetService petService = new PetService();
    public void run() {
         if (Authenticator.auth()) {
          Client client = clientService.registerNewClient();
@@ -20,9 +20,11 @@ public class ApplicationRunner {
 
              if (answer.equals("yes")) {
                  addPet(client);
-             } else {
-                 System.out.println("Thank you for using our service.");
+
              }
+
+                 System.out.println("Client details:");
+                 System.out.println(client);
          } else {
              System.out.println("Client registration failed.");
          }
@@ -38,4 +40,5 @@ public class ApplicationRunner {
            pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
            System.out.println("Pet has been added.");
     }
+
 }
