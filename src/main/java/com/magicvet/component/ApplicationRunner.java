@@ -20,9 +20,7 @@ public class ApplicationRunner {
 
              if (answer.equals("yes")) {
                  addPet(client);
-
              }
-
                  System.out.println("Client details:");
                  System.out.println(client);
          } else {
@@ -31,14 +29,17 @@ public class ApplicationRunner {
         } else {
             System.out.println("Authentication failed.");
         }
+
    }
 
        private void addPet(Client client) {
            System.out.println("Adding a new pet.");
            Pet pet = petService.registerNewPet();
+
+           if(pet != null){
            client.setPet(pet);
            pet.setOwnerName(client.getFirstName() + " " + client.getLastName());
-           System.out.println("Pet has been added.");
+           System.out.println("Pet has been added.");}
     }
 
 }
