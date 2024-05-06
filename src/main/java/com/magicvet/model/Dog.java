@@ -2,8 +2,28 @@ package main.java.com.magicvet.model;
 
 import java.util.Objects;
 
-public class Dog extends Pet{
+public class Dog extends Pet {
+    public static final String XS = "XS";
+    public static final String S = "S";
+    public static final String M = "M";
+    public static final String L = "L";
+    public static final String XL = "XL";
+    public static final String PUPPY = "Puppy";
+    public static final String YOUNG = "Young";
+    public static final String YOUNG_ADULT = "Young Adult";
+    public static final String ADULT = "Adult";
+    public static final String OLD = "Old";
     private String size;
+
+    public Dog() {
+        super();
+    }
+
+    public Dog(String size, String age) {
+        super(age);
+        this.size = size;
+    }
+
     @Override
     public String toString() {
         return "Dog {" +
@@ -34,4 +54,5 @@ public class Dog extends Pet{
     public String getSize() {
         return size;
     }
+
 }

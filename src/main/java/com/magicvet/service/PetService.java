@@ -22,7 +22,7 @@ public class PetService {
     }
 
     private Pet buildPet(String type) {
-        Pet pet = (type.equals(CAT_TYPE)) ? new Cat() : new Dog();
+        Pet pet = (!type.equals(CAT_TYPE)) ? new Dog() : new Cat();
         pet.setType(type);
 
         System.out.print("Age: ");

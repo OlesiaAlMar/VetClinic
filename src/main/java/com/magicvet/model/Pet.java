@@ -8,6 +8,13 @@ public abstract class Pet {
     private String age;
     private String name;
     private String ownerName;
+    public Pet(String age) {
+        this.age = age;
+    }
+
+    public Pet() {
+    }
+
     @Override
     public String toString() {
         return "Pet {"
@@ -18,7 +25,6 @@ public abstract class Pet {
                 + ", ownerName = " + ownerName
                 + "}";
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
