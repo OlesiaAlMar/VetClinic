@@ -5,14 +5,30 @@ import java.util.Objects;
 public abstract class Pet {
     private String type;
     private String sex;
-    private String age;
+    private Age age;
     private String name;
     private String ownerName;
-    public Pet(String age) {
-        this.age = age;
-    }
+    private HealthState healthState;
 
     public Pet() {
+    }
+
+    public Pet(Age age, HealthState healthState) {
+        this.age = age;
+        this.healthState = healthState;
+    }
+
+    public HealthState getHealthState() {
+        return healthState;
+    }
+
+    public Pet(String type, String sex, Age age, String name, String ownerName, HealthState healthState) {
+        this.type = type;
+        this.sex = sex;
+        this.age = age;
+        this.name = name;
+        this.ownerName = ownerName;
+        this.healthState = healthState;
     }
 
     @Override
@@ -25,6 +41,7 @@ public abstract class Pet {
                 + ", ownerName = " + ownerName
                 + "}";
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,7 +59,9 @@ public abstract class Pet {
         return Objects.hash(type, sex, age, name, ownerName);
     }
 
-    public String getType() {return type;}
+    public String getType() {
+        return type;
+    }
 
     public void setType(String type) {
         this.type = type;
@@ -56,11 +75,11 @@ public abstract class Pet {
         this.sex = sex;
     }
 
-    public String getAge() {
+    public Age getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(Age age) {
         this.age = age;
     }
 
@@ -78,5 +97,59 @@ public abstract class Pet {
 
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
+    }
+
+    public enum HealthState {
+        EXCELLENT(1),
+        GOOD(2),
+        FAIR(3),
+        POOR(4),
+        CRITICAL(5);
+        private final int val;
+
+        HealthState(int val) {
+            this.val = val;
+        }
+
+        public int getVal() {
+            return val;
+        }
+    }
+
+    public enum Age {
+        LITTLE(0, 1),
+        YOUNG(2, 4),
+        ADULT(5, 8),
+        OLD(9, 14),
+        SENIOR(14, 20);
+
+        private final int minValue;
+        private final int maxValue;
+
+        Age(int minValue, int maxValue) {
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+        }
+
+        public static Age fromValue(int value) {
+            for (Age age : values()) {
+                if (value >= age.minValue && value <= age.maxValue) {
+                    return age;
+                }
+            }
+            throw new IllegalArgumentException("Invalid age value: " + value);
+        }
+
+        public int getMinValue() {
+            return minValue;
+        }
+
+        public int getMaxValue() {
+            return maxValue;
+        }
+
+        public int getValue() {
+            return (minValue + maxValue) / 2;
+        }
     }
 }

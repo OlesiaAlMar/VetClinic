@@ -3,33 +3,24 @@ package main.java.com.magicvet.model;
 import java.util.Objects;
 
 public class Dog extends Pet {
-    public static final String XS = "XS";
-    public static final String S = "S";
-    public static final String M = "M";
-    public static final String L = "L";
-    public static final String XL = "XL";
-    public static final String PUPPY = "Puppy";
-    public static final String YOUNG = "Young";
-    public static final String YOUNG_ADULT = "Young Adult";
-    public static final String ADULT = "Adult";
-    public static final String OLD = "Old";
-    private String size;
+    private Size size;
 
-    public Dog() {
-        super();
+    public Dog(Size size, Age age, Pet.HealthState healthState) {
+        super(age, healthState);
+        this.size = size;
     }
 
-    public Dog(String size, String age) {
-        super(age);
-        this.size = size;
+    @Override
+    public HealthState getHealthState() {
+        return super.getHealthState();
     }
 
     @Override
     public String toString() {
         return "Dog {" +
                 "name = '" + getName() + '\'' +
-                ", age = " + getAge() +
-                ", size = '" + getSize() + '\'' +
+                ", age = "  + getAge() +
+                ", size = '" + size + '\'' +
                 '}';
     }
 
@@ -47,12 +38,29 @@ public class Dog extends Pet {
         return Objects.hash(super.hashCode(), size);
     }
 
-    public void setSize(String size) {
+    public void setSize(Size size) {
         this.size = size;
     }
 
-    public String getSize() {
+    public Size getSize() {
         return size;
     }
 
+    public enum Size {
+        XS(1),
+        S(2),
+        M(3),
+        L(4),
+        XL(5),
+        UNKNOWN(0);
+        private final int value;
+
+        Size(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
+    }
 }

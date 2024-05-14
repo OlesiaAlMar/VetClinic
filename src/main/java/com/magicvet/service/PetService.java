@@ -22,11 +22,14 @@ public class PetService {
     }
 
     private Pet buildPet(String type) {
-        Pet pet = (!type.equals(CAT_TYPE)) ? new Dog() : new Cat();
+        Pet pet = (!type.equals(CAT_TYPE)) ? new Dog(Dog.Size.M, Dog.Age.ADULT, Pet.HealthState.EXCELLENT) : new Cat();
         pet.setType(type);
 
         System.out.print("Age: ");
-        pet.setAge(Main.SCANNER.nextLine());
+        int ageValue = Integer.parseInt(Main.SCANNER.nextLine());
+
+        pet.setAge(Pet.Age.fromValue(ageValue));
+
 
         System.out.print("Name: ");
         pet.setName(Main.SCANNER.nextLine());
@@ -35,8 +38,9 @@ public class PetService {
         pet.setSex(Main.SCANNER.nextLine());
 
         if(type.equals(DOG_TYPE)){
-            System.out.println("Size(xS / S / M / L / xxL: ");
-            ((Dog) pet).setSize(Main.SCANNER.nextLine());
+            System.out.println("Size(XS / S / M / L / XL): ");
+            String size = (Main.SCANNER.nextLine());
+            ((Dog) pet).setSize(Dog.Size.valueOf(size));
         }
 
         return pet;
