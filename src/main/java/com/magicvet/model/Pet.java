@@ -104,6 +104,14 @@ public abstract class Pet {
     public void setOwnerName(String ownerName) {
         this.ownerName = ownerName;
     }
+    public LocalDateTime getRegistrationDate() {
+        return registrationDate;
+    }
+    public static DateTimeFormatter getFormatter() {
+        return FORMATTER;
+    }
+
+
 
     public enum HealthState {
         EXCELLENT(1),

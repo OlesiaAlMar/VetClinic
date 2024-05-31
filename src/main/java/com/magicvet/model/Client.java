@@ -2,25 +2,28 @@ package main.java.com.magicvet.model;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Client {
-   private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
-   private String firstName;
-   private String lastName;
-   private String email;
-   private Pet pet;
-   private final LocalDateTime registrationDate = LocalDateTime.now();
-@Override
-public String toString(){
-    return "Client{"
-            + "\n\tfirstName = "+ firstName
-            + ", lastName = "+ lastName
-            + ", email = " + email
-            + ", \n\tpet = " + pet
-            + ", registrationDate = " +registrationDate.format(FORMATTER)
-            + "\n}";
-}
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
+    private String firstName;
+    private String lastName;
+    private String email;
+    private List<Pet> pets = new ArrayList<>();
+    private final LocalDateTime registrationDate = LocalDateTime.now();
+
+    @Override
+    public String toString() {
+        return "Client{"
+                + "\n\tfirstName = " + firstName
+                + ", lastName = " + lastName
+                + ", email = " + email
+                + ", \n\tpets = " + pets
+                + ", registrationDate = " + registrationDate.format(FORMATTER)
+                + "\n}";
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -30,12 +33,12 @@ public String toString(){
         return Objects.equals(firstName, client.firstName)
                 && Objects.equals(lastName, client.lastName)
                 && Objects.equals(email, client.email)
-                && Objects.equals(pet, client.pet);
+                && Objects.equals(pets, client.pets);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email, pet);
+        return Objects.hash(firstName, lastName, email, pets);
     }
 
     public void setFirstName(String firstName) {
@@ -62,11 +65,15 @@ public String toString(){
         return email;
     }
 
-    public Pet getPet() {
-        return pet;
+    public List<Pet> getPets() {
+        return pets;
     }
 
-    public void setPet(Pet pet) {
-        this.pet = pet;
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
+    }
+
+    public void addPetList(Pet pet) {
+        pets.add(pet);
     }
 }
