@@ -8,11 +8,12 @@ import main.java.com.magicvet.model.Pet;
 public class PetService {
     private static final String DOG_TYPE = "dog";
     private static final String CAT_TYPE = "cat";
+
     public Pet registerNewPet(){
-        Pet pet = null;
         System.out.print("Type (dog / cat): ");
         String type = Main.SCANNER.nextLine();
 
+        Pet pet = null;
         if(DOG_TYPE.equals(type) || CAT_TYPE.equals(type)){
             pet = buildPet(type);
         }else{
@@ -22,26 +23,36 @@ public class PetService {
     }
 
     private Pet buildPet(String type) {
-        Pet pet = (!type.equals(CAT_TYPE)) ? new Dog(Dog.Size.M, Dog.Age.ADULT, Pet.HealthState.EXCELLENT) : new Cat();
-        pet.setType(type);
 
         System.out.print("Age: ");
         int ageValue = Integer.parseInt(Main.SCANNER.nextLine());
 
-        pet.setAge(Pet.Age.fromValue(ageValue));
-
+        Pet.Age age =  Pet.Age.fromValue(ageValue);
 
         System.out.print("Name: ");
-        pet.setName(Main.SCANNER.nextLine());
+       String name = Main.SCANNER.nextLine();
 
         System.out.print("Sex(male/female): ");
-        pet.setSex(Main.SCANNER.nextLine());
+        String sex = Main.SCANNER.nextLine().toLowerCase();
 
-        if(type.equals(DOG_TYPE)){
-            System.out.print("Size(XS / S / M / L / XL): ");
-            String size = (Main.SCANNER.nextLine());
-            ((Dog) pet).setSize(Dog.Size.valueOf(size));
-        }
+        System.out.print("Health state (excellent/good/fair/poor/critical): ");
+        Pet.HealthState healthState = Pet.HealthState.health(Main.SCANNER.nextLine().toUpperCase());
+
+            Pet pet;
+            if (DOG_TYPE.equals(type)) {
+                System.out.print("Size (XS / S / M / L / XL): ");
+                Dog.Size size = Dog.Size.fromString(Main.SCANNER.nextLine().toUpperCase());
+                pet = new Dog(size, age, ageValue, healthState);
+            } else {
+                pet = new Cat();
+                pet.setHealthState(healthState);
+            }
+
+            pet.setType(type);
+            pet.setAgeCategory(age);
+            pet.setNumericAge(ageValue);
+            pet.setName(name);
+            pet.setSex(sex);
 
         return pet;
     }

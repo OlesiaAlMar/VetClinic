@@ -74,6 +74,6 @@ public class Client {
 
     public void setLocation(Location location) {this.location = location;}
     public enum Location{
-        KYIV, LVIV, ODESA
+        KYIV, LVIV, ODESA, UNKNOWN
     }
 }

@@ -1,12 +1,12 @@
 package main.java.com.magicvet.model;
-
+import main.java.com.magicvet.util.EnumParser;
 import java.util.Objects;
 
 public class Dog extends Pet {
     private Size size;
 
-    public Dog(Size size, Age age, Pet.HealthState healthState) {
-        super(age, healthState);
+    public Dog(Size size, Age ageCategory,int numAge, Pet.HealthState healthState) {
+        super(ageCategory,numAge, healthState);
         this.size = size;
     }
 
@@ -20,11 +20,12 @@ public class Dog extends Pet {
         return "Pet {" +
                 "type = " + getType() +
                 ", sex = " + getSex() +
-                ", age = " + getAge() +
+                ", age = " + getNumericAge() + " (" + getAgeCategory() + ")"+
                 ", name = " + getName() +
+                ", size = " + getSize() +
                 ", ownerName = " + getOwnerName() +
+                ", healthState = " + getHealthState()+
                 ", registrationDate = " + getRegistrationDate().format(getFormatter()) +
-                ", size = '" + size + '\'' +
                 '}';
     }
 
@@ -62,6 +63,9 @@ public class Dog extends Pet {
         Size(int value) {
             this.value = value;
         }
+public static Size fromString(String value){
+       return EnumParser.parseEnum(Size.class, value,UNKNOWN);
+     }
 
         public int getValue() {
             return value;

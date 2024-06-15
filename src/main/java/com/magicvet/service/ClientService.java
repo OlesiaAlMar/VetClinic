@@ -2,6 +2,7 @@ package main.java.com.magicvet.service;
 
 import main.java.com.magicvet.Main;
 import main.java.com.magicvet.model.Client;
+import main.java.com.magicvet.util.EnumParser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,14 +42,19 @@ public class ClientService {
         return client;
     }
   private static Client buildClient(String email,String firstName, String lastName) {
-        Client client = new Client();
-        client.setEmail(email);
-        client.setFirstName(firstName);
-        client.setLastName(lastName);
+      Client client = new Client();
+      client.setEmail(email);
+      client.setFirstName(firstName);
+      client.setLastName(lastName);
 
       System.out.print("Location: ");
-      String location = Main.SCANNER.nextLine();
-      client.setLocation(Client.Location.valueOf(location));
+
+      String locationInput = Main.SCANNER.nextLine();
+
+      Client.Location location = EnumParser.parseEnum(Client.Location.class, locationInput, Client.Location.UNKNOWN);
+
+      client.setLocation(location);
+
         return client;
     }
   private static boolean isEmailValid(String email) {
