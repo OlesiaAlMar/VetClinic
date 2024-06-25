@@ -5,21 +5,23 @@ import main.java.com.magicvet.model.Cat;
 import main.java.com.magicvet.model.Dog;
 import main.java.com.magicvet.model.Pet;
 
+import java.util.Optional;
+
 public class PetService {
     private static final String DOG_TYPE = "dog";
     private static final String CAT_TYPE = "cat";
 
-    public Pet registerNewPet(){
+    public Optional<Pet> registerNewPet(){
         System.out.print("Type (dog / cat): ");
         String type = Main.SCANNER.nextLine();
 
-        Pet pet = null;
-        if(DOG_TYPE.equals(type) || CAT_TYPE.equals(type)){
-            pet = buildPet(type);
-        }else{
-            System.out.println("Unknown pet type: " + type);
-        }
-        return pet;
+        return Optional.ofNullable(type)
+                .filter(t -> DOG_TYPE.equals(t) || CAT_TYPE.equals(t))
+                .map(this::buildPet)
+                .or(() -> {
+                    System.out.println("Unknown pet type: " + type);
+                    return Optional.empty();
+                });
     }
 
     private Pet buildPet(String type) {
